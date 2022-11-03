@@ -17,7 +17,7 @@ def Numeric_Methods(X0, Y0, h, f, method, range_end):
         a = round(method(q, yn[i], h, f), 2)
         dic[q] = a
         yn.append(a)
-    return xn, yn
+    return xn, yn, dic
 
 
 def Method_euler(Xn, Yn, h, f):
@@ -57,13 +57,6 @@ ptosEulerM2 = Numeric_Methods(0, 49, 0.1, f2, Runge_Kutta, 10)
 ptos = SolutionValues()
 
 
-print(ptosEulerM)
-print("------------")
-# print(ptosEulerM2)
-print("------------")
-print(ptos)
-
-
 def Plot():
     plt.plot(ptosEulerM[0], ptosEulerM[1])
     plt.plot(ptosEulerM2[0], ptosEulerM2[1])
@@ -71,22 +64,14 @@ def Plot():
     plt.show()
 
 
-def Test():
-    a = ptosEulerM[1]
-    b = ptos[1]
-    for i in range(len(ptos)):
-        c = abs(a[i]-b[i])
-        if (c > 0.9):
-            print("Error")
-            print([a[i]])
-            print(b[i])
+def ReturnValues(incio, fin, intervalo, Dicc):
+    a = []
 
-            break
+    for i in np.arange(incio, fin, intervalo):
+        if (i in Dicc):
+            a.append(Dicc[i])
+
+    return a
 
 
-Test()
-
-a = {}
-
-a["d"] = 1
-print(a["d"])
+print(ReturnValues(0, 10, 0.2, ptosEulerM[2]))
